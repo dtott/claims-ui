@@ -1,0 +1,18 @@
+.nav-link-text{
+    padding: 10px;
+    color: #999D9F;
+    text-decoration: none;
+    margin-left: 15px;
+  }
+  
+  .nav-link-text:hover {
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    margin-left: 15px;
+  }
+
+  .nav_title_font{
+    font-family: 'Poppins', sans-serif;
+}
+

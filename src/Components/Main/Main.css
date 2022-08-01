@@ -1,0 +1,73 @@
+html body {
+    margin:0;
+    padding:0;
+    height:100%;
+  }
+
+.jumbotron-text-left {
+    text-align: left;
+}
+
+.jumbotron-text-margin {
+    margin-left: 80px;
+}
+
+.jumbotron-bg {
+    background-color: rgb(226, 226, 226);
+}
+
+/* For Mobile and Tablet */
+@media screen and (max-width: 780px) {
+    .jumbotron-view {
+        margin-left: 0;
+    }
+}
+
+form label{
+    text-align: left !important;
+    float: left !important;
+    margin-top: 5px;
+}
+
+form small {
+    margin: 2;
+    display: block;
+    text-align: left;
+}
+
+form textarea {
+    resize: none;
+}
+
+form button {
+    margin-top: 10px;
+    margin-right: 5px;
+}
+
+.form-select-size{
+    width: 190px !important;
+    margin-right: 5px !important;
+}
+
+.select-bg {
+    background-color: white;
+    border-color: rgb(0, 0, 0);
+}
+
+.transactionsTable {
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    border: 1px solid #999;
+}
+
+.search-margin {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.span-bold{
+    font-weight: bold !important;
+}
+
