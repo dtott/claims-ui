@@ -1,5 +1,4 @@
 import { Fragment } from "react";
-import EditClaim from "./EditClaim";
 
 const EditClaimForm = (props) => {
 

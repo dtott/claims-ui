@@ -17,7 +17,7 @@ const claims = [
     {
         claimId: 2, policyNumber: 4406, title: "Mrs", firstName: "Jane", surname: "Jones", status: "paid",
         type: "pet", estimatedValue: 240, claimOpenDate: "2022-05-20", claimReason: "cut on front left paw",
-        amount : 260, animalType: "dog", breed: "Border collie", incidentDate: "2022-05-18"
+        animalType: "dog", breed: "Border collie", incidentDate: "2022-05-18"
     },
     {
         claimId: 3, policyNumber: 9191, title: "Dr", firstName: "Geraldine", surname: "Green", status: "rejected",
