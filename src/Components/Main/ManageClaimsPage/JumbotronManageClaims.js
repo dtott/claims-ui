@@ -7,8 +7,7 @@ const JumbotronManageClaims = (props) => {
         <h1 className="display-6 jumbotron-view jumbotron-text-margin justify-content-left text-info fw-bold">Manage Claims</h1>
         <p className="col-md-8 jumbotron-view jumbotron-text-margin fs-4">Please select what claims to view</p>
         <form className="col-md-8 jumbotron-view jumbotron-text-margin">
-            <select defaultValue="default" onChange={props.changeStatus} className="form-select select-bg form-select-size" data-style="btn-primary" placeholder="Claim Status">
-                <option vlaue="default" hidden disabled>Select Claim Status</option>
+            <select onChange={props.changeStatus} className="form-select select-bg form-select-size" data-style="btn-primary" placeholder="Claim Status">
                 <option value="Open">Open Claims</option>
                 <option value="Closed">Closed Claims</option>
             </select>

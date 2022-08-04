@@ -7,6 +7,7 @@ import {getAllClaims} from '../../Data/DataFunctions';
 
 const ManageClaims = () => {
 
+    //Start of Creating dropdown options
     const claims = getAllClaims(); // Declare getAllClaims Array
     const allStatus = claims.map (claims => claims.ClaimStatus); // Map all status options to allStatus
 
@@ -16,22 +17,21 @@ const ManageClaims = () => {
      ); 
 
     const [selectedStatus, setSelectedStatus] = useState(uniqueStatus[0]); // Declare use state for the selected status
+    //End of Creating dropdown options
     
     // Change claim status via select onChange event in JumbotronManageClaims
     const changeStatus = (event) => {
         const selectedStatusIndex = event.target.options.selectedIndex;
-        setSelectedStatus(uniqueStatus[selectedStatusIndex-1]);
+        setSelectedStatus(uniqueStatus[selectedStatusIndex]);
       }
 
     // Create Search Event
-    const doSearch = (event) => {
-        event.preventDefault();
-    }
+    const [searchTerm, setSearchTerm] = useState("");
 
     return <Fragment>
         <JumbotronManageClaims changeStatus={changeStatus} />
-        <ManageClaimsSearchBar doSearch={doSearch}/>
-        <ManageClaimsTable claims={claims} selectedStatus={selectedStatus} />
+        <ManageClaimsSearchBar setSearchTerm={setSearchTerm}/>
+        <ManageClaimsTable claims={claims} selectedStatus={selectedStatus} searchTerm={searchTerm}/>
     </Fragment>
 }
 

@@ -49,6 +49,11 @@ form button {
     margin-right: 5px !important;
 }
 
+.form-select-size-edit{
+    width: 190px !important;
+    ;
+}
+
 .select-bg {
     background-color: white;
     border-color: rgb(0, 0, 0);
@@ -69,5 +74,9 @@ form button {
 
 .span-bold{
     font-weight: bold !important;
+}
+
+.back-button-margin{
+    margin-bottom: 150px;
 }
 
