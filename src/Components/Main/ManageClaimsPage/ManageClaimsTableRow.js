@@ -1,18 +1,10 @@
 import { Link } from "react-router-dom";
-import App from "../../../App";
 
 const ManageClaimsTableRow = (props) => {
     
-    return <tr id={props.PolicyNo}><td className="pt-3">{props.PolicyNo}</td><td className="pt-3">{props.CustomerName}</td><td className="pt-3">{props.ClaimAmount}</td><td className="pt-3">{props.ClaimStatus}</td>
-    <td><Link to="/editClaim" state={{ 
-        PolicyNo: props.PolicyNo, 
-        CustomerName: props.CustomerName, 
-        ClaimAmount: props.ClaimAmount, 
-        InsuranceType: props.InsuranceType,
-        ClaimStatus: props.ClaimStatus,
-        ClaimDate: props.ClaimDate,
-        ClaimReason: props.ClaimReason,
-        ClaimDescription: props.ClaimDescription
+    return <tr id={props.policyNumber}><td className="pt-3">{props.policyNumber}</td><td className="pt-3">{props.firstName} {props.surname}</td><td className="pt-3">{props.type}</td><td className="pt-3">${parseFloat(props.estimatedValue).toFixed(2)}</td><td className="pt-3">{props.status.charAt(0).toUpperCase() + props.status.slice(1)}</td>
+    <td className="pt-2"><Link to="/editClaim" state={{ 
+        claimId: props.claimId, 
     }}><button className="btn btn-primary">View</button></Link></td></tr>
 
 }

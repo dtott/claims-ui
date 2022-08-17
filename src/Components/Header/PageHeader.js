@@ -1,7 +1,6 @@
 import './PageHeader.css';
 import { Fragment } from "react";
 import { Navbar, Container } from "react-bootstrap";
-import EditClaim from '../Main/EditClaimPage/EditClaim';
 import { Link } from 'react-router-dom';
 
 const PageHeader = (
@@ -20,7 +19,7 @@ const PageHeader = (
       <Link to="/manageClaims" className="d-block d-lg-inline nav-link-text" >Manage Claims</Link>
     </div>
     <div>
-      <button className="btn nav-link-text btn-outline-info">Sign Out</button>
+      <button className="btn nav-link-text btn-outline-info">Stay Connected</button>
     </div>
   </Navbar.Collapse>
   </Container>

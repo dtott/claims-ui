@@ -80,3 +80,51 @@ form button {
     margin-bottom: 150px;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+.visable-div  {
+    padding: 0;
+}
+
+h4 {
+    align-content: left;
+    text-align: left;
+    margin-left: 0px;
+}
+
+h5 {
+    align-content: left;
+    text-align: left;
+    margin-left: 40px;
+}
+
+.button-left {
+    text-align: left !important;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.lead-fontsize {
+    font-size: 20px !important;
+}
+
+.small-margin {
+    margin-left: 0px;
+    margin-bottom: 15px;
+}
+
+.align-right {
+    text-align: right;
+}

@@ -2,39 +2,34 @@ import ManageClaimsTableRow from './ManageClaimsTableRow';
 
 const ManageClaimsTable = (props) => {
 
-  console.log(props.searchTerm);
+  const displayClaims = props.claimsToDisplay.filter(claims => props.searchTerm === "" || claims.firstName.toLowerCase().includes(props.searchTerm.toLowerCase()) || claims.policyNumber.toString().includes(props.searchTerm) ).map(claims =>
+    <ManageClaimsTableRow key={claims.policyNumber}
+      policyNumber={claims.policyNumber}
+      firstName={claims.firstName}
+      surname={claims.surname}
+      type={claims.type}
+      estimatedValue={claims.estimatedValue}
+      status={claims.status}
+      claimId={claims.claimId}
+    />
+  )
 
- 
-
-    // Display claim results
-    const displayClaims = props.claims.filter(claims => props.searchTerm=== "" || claims.CustomerName.toString().includes(props.searchTerm) || claims.PolicyNo.toString().includes(props.searchTerm)).map(claims => (claims.ClaimStatus === props.selectedStatus)
-       && <ManageClaimsTableRow key={claims.PolicyNo} 
-      PolicyNo={claims.PolicyNo} 
-      InsuranceType={claims.InsuranceType}
-      CustomerName={claims.CustomerName} 
-      ClaimAmount={claims.ClaimAmount} 
-      ClaimStatus={claims.ClaimStatus} 
-      ClaimDate={claims.ClaimDate}
-      ClaimReason={claims.ClaimReason}
-      ClaimDescription={claims.ClaimDescription}
-      />
-     );
-
-    return <div className="d-flex container">
-        <table className="table">
-    <thead className="thead-dark">
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Customer Name</th>
-        <th scope="col">Amount</th>
-        <th scope="col">Status</th>
-        <th scope="col">Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      {displayClaims}
-    </tbody>
-  </table>
+  return <div className="d-flex container">
+    <table className="table table-sm p-5">
+      <thead className="thead-dark">
+        <tr>
+          <th scope="col">Policy Number</th>
+          <th scope="col">Customer Name</th>
+          <th scope="col">Type</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Status</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody className="p-3">
+        {displayClaims}
+      </tbody>
+    </table>
   </div>
 }
 
