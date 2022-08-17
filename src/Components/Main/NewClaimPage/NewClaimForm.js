@@ -1,4 +1,5 @@
 import { Fragment, useState } from "react";
+<<<<<<< HEAD
 import { getAllClaims } from "../../Data/sample-data";
 
 const NewClaimForm = () => {
@@ -9,6 +10,13 @@ const maxClaimId = Math.max(...claimIds);
 
 
 const today = new Date();
+=======
+
+const NewClaimForm = () => {
+
+
+    const today = new Date();
+>>>>>>> 3e32ca3b335f481ec2e5dbb0597a1f7988b2efd0
 const date = today.setDate(today.getDate()); 
 const defaultDate = new Date(date).toISOString().split('T')[0] // yyyy-mm-dd
 
@@ -39,6 +47,7 @@ const changeTypefields = (event) => {
 
     }
 }
+<<<<<<< HEAD
 
 const [addClaim, setAddClaim] = useState({
     claimId: '',
@@ -125,17 +134,28 @@ const [addClaim, setAddClaim] = useState({
 
  console.log(addClaim);
  
+=======
+    
+>>>>>>> 3e32ca3b335f481ec2e5dbb0597a1f7988b2efd0
 
     return <Fragment>
         
         <div className="d-flex justify-content-center">
+<<<<<<< HEAD
         <form onSubmit={submitNewClaim} className=" card p-3 bg-light col-xl-5 col-lg-10 col-md-10 col-sm-10 col-11 mb-7">
+=======
+        <form className=" card p-3 bg-light col-xl-5 col-lg-10 col-md-10 col-sm-10 col-11 mb-7">
+>>>>>>> 3e32ca3b335f481ec2e5dbb0597a1f7988b2efd0
         <div className="form-group row">
 
             {/* Column 1 of form */}
             <div className="col-6">
                 <label className="col-form-label form-text-left" htmlFor="policyNumber">Policy Number</label>
+<<<<<<< HEAD
                 <input type="number" className="form-control" id="policyNumber" name="policyNumber" placeholder="Enter Policy Number"></input>
+=======
+                <input type="number" className="form-control" id="policyNumber" placeholder="Enter Policy Number"></input>
+>>>>>>> 3e32ca3b335f481ec2e5dbb0597a1f7988b2efd0
                 <label className="col-form-label" htmlFor="firstName">First Name</label>
                 <input type="text" className="form-control" id="firstName" placeholder="Enter First Name"></input>
                 <label className="col-form-label form-text-left" htmlFor="type">Insurance Type</label>
@@ -153,6 +173,7 @@ const [addClaim, setAddClaim] = useState({
                 {/* Column 2 of form */}
                 <div className="col-6">
                 <label className="col-form-label form-text-left" htmlFor="title">Title</label>
+<<<<<<< HEAD
                 <select defaultValue="default" id="title" name="title" className="form-select form-control">
                     <option value="default" disabled hidden>Title</option>
                     <option>Mr</option>
@@ -165,6 +186,20 @@ const [addClaim, setAddClaim] = useState({
                 <label className="col-form-label" htmlFor="surname">Surname</label>
                 <input type="text" className="form-control" id="surname" placeholder="Enter Surname"></input>
                 <input id="status" defaultValue="new" hidden></input>
+=======
+                <select defaultValue="default" id="title" className="form-select form-control">
+                    <option value="default" disabled hidden>Title</option>
+                    <option value="Mr">Mr</option>
+                    <option value="Mrs">Mrs</option>
+                    <option value="Dr">Dr</option>
+                    <option value="Prof.">Prof.</option>
+                    <option value="Miss">Miss</option>
+                    <option value="Do not specify">Do not specify</option>
+                </select>
+                <label className="col-form-label" htmlFor="surname">Surname</label>
+                <input type="text" className="form-control" id="surname" placeholder="Enter Surname"></input>
+                <input id="status" value="new" hidden></input>
+>>>>>>> 3e32ca3b335f481ec2e5dbb0597a1f7988b2efd0
                 <label className="col-form-label" htmlFor="estimatedValue">Estimated Value</label>
                 <input type="number" className="form-control" id="estimatedValue" placeholder="Enter the Estimated Value"></input>
                 <label className="col-form-label" htmlFor="incidentDate">Incident Date</label>
@@ -200,7 +235,11 @@ const [addClaim, setAddClaim] = useState({
                 <div className="row">
                     <div className="col-12">
                     <label className="col-form-label" htmlFor="address">Property Address</label>
+<<<<<<< HEAD
                     <input type="text" className="form-control" id="address" defaultValue="" placeholder="Enter Address"></input>
+=======
+                    <input type="text" className="form-control" id="address" placeholder="Enter Address"></input>
+>>>>>>> 3e32ca3b335f481ec2e5dbb0597a1f7988b2efd0
                     </div>
                     <div className="mt-3">
                 <hr></hr>
@@ -213,11 +252,19 @@ const [addClaim, setAddClaim] = useState({
                 <div className="row">
                     <div className="col">
                     <label className="col-form-label" htmlFor="animalType">Animal Type</label>
+<<<<<<< HEAD
                     <input type="text" className="form-control" id="animalType" defaultValue="" placeholder="Enter Type"></input>
                     </div>
                     <div className="col">
                     <label className="col-form-label" htmlFor="breed">Animal Breed</label>
                     <input type="text" className="form-control" id="breed" defaultValue="" placeholder="Enter Breed"></input>
+=======
+                    <input type="text" className="form-control" id="animalType" placeholder="Enter Type"></input>
+                    </div>
+                    <div className="col">
+                    <label className="col-form-label" htmlFor="breed">Animal Breed</label>
+                    <input type="text" className="form-control" id="breed" placeholder="Enter Breed"></input>
+>>>>>>> 3e32ca3b335f481ec2e5dbb0597a1f7988b2efd0
                     </div>
                     <div className="mt-3">
                 <hr></hr>
@@ -228,6 +275,7 @@ const [addClaim, setAddClaim] = useState({
                <div className="row">
                <div className="col-12">
                 <label className="col-form-label" htmlFor="claimReason">Reason for the claim</label>
+<<<<<<< HEAD
                 <textarea id="claimReason" className="form-control" rows="2" maxLength="100" placeholder="Enter Reason For Claim"></textarea>
                 </div>
                 <br></br>
@@ -245,6 +293,17 @@ const [addClaim, setAddClaim] = useState({
                 <button className="btn btn-danger col mt-4">Reset</button></div>
                 </div>
                 
+=======
+                <textarea id="claimReason" className="form-control" rows="2" minLength="100" placeholder="Enter Reason For Claim"></textarea>
+                </div>
+                <br></br>
+                <div className="col-12">
+                <label className="col-form-label" htmlFor="furtherDetails">Further Details</label>
+                <textarea id="furtherDetails" className="form-control" rows="6" minLength="500" placeholder="Enter Further Details"></textarea>
+                <small className="form-text text-muted">*500 characters</small>
+                </div>
+                </div>
+>>>>>>> 3e32ca3b335f481ec2e5dbb0597a1f7988b2efd0
 
         </form>
         </div>
