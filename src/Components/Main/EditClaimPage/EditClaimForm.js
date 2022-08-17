@@ -1,10 +1,6 @@
-<<<<<<< HEAD
 import { Fragment, useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getClaim } from "../../Data/sample-data";
-=======
-import { Fragment } from "react";
->>>>>>> 3e32ca3b335f481ec2e5dbb0597a1f7988b2efd0
 
 const EditClaimForm = (props) => {
 
