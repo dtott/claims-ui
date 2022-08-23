@@ -1,16 +1,7 @@
-import { Fragment, useState } from "react";
-import { getAllClaims } from "../../Data/sample-data";
+import { Fragment, useEffect, useReducer, useRef, useState } from "react";
+import { addNewClaim, addNewcustomer } from "../../Data/DataFunctions";
 
 const NewClaimForm = () => {
-
-const claims = getAllClaims();
-const claimIds = claims.map(claim => claim.claimId);
-const maxClaimId = Math.max(...claimIds);
-
-
-const today = new Date();
-const date = today.setDate(today.getDate()); 
-const defaultDate = new Date(date).toISOString().split('T')[0] // yyyy-mm-dd
 
 const [motorType, setMotorType] = useState(true);
 const [PropertyType, setPropertyType] = useState(true);
@@ -38,18 +29,19 @@ const changeTypefields = (event) => {
                 default:
 
     }
+
+
+    const dataToChange = { field: event.target.id, value: event.target.value};
+     dispatch(dataToChange);
 }
 
-const [addClaim, setAddClaim] = useState({
-    claimId: '',
-    policyNumber: '',
-    title: '',
+const emptyClaim = {
+    customerID: '',
+    type: '',
     firstName: '',
     surname: '',
-    status: '',
-    type: '',
+    title: '',
     estimatedValue: '',
-    claimOpenDate: '',
     claimReason: '',
     make: '',
     model: '',
@@ -60,101 +52,79 @@ const [addClaim, setAddClaim] = useState({
     animalType: '',
     breed: '',
     address: ''
- });
-
- const submitNewClaim = (e) => {
-    e.preventDefault();
-    
-    if(PropertyType === false){
-        setAddClaim({...addClaim, 
-            claimId: maxClaimId + 1,
-            address: e.target.elements.address.value,
-            policyNumber: e.target.elements.policyNumber.value,
-        title: e.target.elements.title.value,
-        firstName: e.target.elements.firstName.value,
-        surname: e.target.elements.surname.value,
-        status: e.target.elements.status.value,
-        type: e.target.elements.type.value,
-        estimatedValue: e.target.elements.estimatedValue.value,
-        claimOpenDate: e.target.elements.claimOpenDate.value,
-        claimReason: e.target.elements.claimReason.value,
-        incidentDate: e.target.elements.incidentDate.value,
-        claimDescription: e.target.elements.claimDescription.value,
-        furtherDetails: e.target.elements.furtherDetails.value,
-        })
-    }else if(motorType === false){
-        setAddClaim({...addClaim, 
-            claimId: maxClaimId + 1,
-            make: e.target.elements.make.value,
-            model: e.target.elements.model.value,
-            year: e.target.elements.year.value,
-            policyNumber: e.target.elements.policyNumber.value,
-        title: e.target.elements.title.value,
-        firstName: e.target.elements.firstName.value,
-        surname: e.target.elements.surname.value,
-        status: e.target.elements.status.value,
-        type: e.target.elements.type.value,
-        estimatedValue: e.target.elements.estimatedValue.value,
-        claimOpenDate: e.target.elements.claimOpenDate.value,
-        claimReason: e.target.elements.claimReason.value,
-        incidentDate: e.target.elements.incidentDate.value,
-        claimDescription: e.target.elements.claimDescription.value,
-        furtherDetails: e.target.elements.furtherDetails.value
-        })
-    }else if(petType === false){
-        setAddClaim({...addClaim, 
-            claimId: maxClaimId + 1,
-            animalType: e.target.elements.animalType.value,
-            breed: e.target.elements.breed.value,
-            policyNumber: e.target.elements.policyNumber.value,
-        title: e.target.elements.title.value,
-        firstName: e.target.elements.firstName.value,
-        surname: e.target.elements.surname.value,
-        status: e.target.elements.status.value,
-        type: e.target.elements.type.value,
-        estimatedValue: e.target.elements.estimatedValue.value,
-        claimOpenDate: e.target.elements.claimOpenDate.value,
-        claimReason: e.target.elements.claimReason.value,
-        incidentDate: e.target.elements.incidentDate.value,
-        claimDescription: e.target.elements.claimDescription.value,
-        furtherDetails: e.target.elements.furtherDetails.value
-        })
-    }
-
  }
 
- console.log(addClaim);
+ const [userID, setUserID] = useState(null);
+ const [count, setCount] = useState(0);
+
+ const newClaimsReducer = (existingState, data) => {
+     return {...existingState, [data.field]: data.value}
+ }
+
+ const [newClaim, dispatch] = useReducer(newClaimsReducer, emptyClaim);
+
+ const handleChange = (event) => {
+     const dataToChange = { field: event.target.id, value: event.target.value};
+     dispatch(dataToChange);
+ }
+
+ const [message, setMessage] = useState("");
+
+ const isSubmitPressed = useRef(false);
+
+ const submitform = (e) => {
+     e.preventDefault();
+     console.log(newClaim);
+     isSubmitPressed.current = true;
+     // Response for adding customer fields
+     const response = addNewcustomer(newClaim);
+     response.then (result => {
+         if(result.status === 200){
+             setMessage("Payment added with ID " + result.data.customerID)
+             setUserID(result.data.customerID);
+             setCount(count + 1);
+         }else{
+             setMessage("didn't work");
+         }
+     })
+     .catch(error => console.log ("something went wrong " + error))
+    
+ }
+
  
 
+ useEffect(() => {
+     if(isSubmitPressed.current){
+         console.log(userID);
+      // Response for adding claimDetails
+      const responseClaimDetails = addNewClaim(newClaim, userID);
+      responseClaimDetails.then (result => {
+         if(result.status === 200){
+             setMessage("Payment added with ID " + result.data.claimId)
+             console.log(result.data.claimId);
+         }else{
+             setMessage("didn't work");
+         }
+      })
+      .catch(error => console.log ("something went wrong new" + error))
+ 
+      console.log(userID);
+      isSubmitPressed.current = false;
+    }
+ }, [count])
+
+ 
     return <Fragment>
         
         <div className="d-flex justify-content-center">
-        <form onSubmit={submitNewClaim} className=" card p-3 bg-light col-xl-5 col-lg-10 col-md-10 col-sm-10 col-11 mb-7">
+        <form onSubmit={submitform} className=" card p-3 bg-light col-xl-5 col-lg-10 col-md-10 col-sm-10 col-11 mb-7">
+        
+        {/* First Row Fields */}
         <div className="form-group row">
-
-            {/* Column 1 of form */}
-            <div className="col-6">
-                <label className="col-form-label form-text-left" htmlFor="policyNumber">Policy Number</label>
-                <input type="number" className="form-control" id="policyNumber" name="policyNumber" placeholder="Enter Policy Number"></input>
-                <label className="col-form-label" htmlFor="firstName">First Name</label>
-                <input type="text" className="form-control" id="firstName" placeholder="Enter First Name"></input>
-                <label className="col-form-label form-text-left" htmlFor="type">Insurance Type</label>
-                <select onChange={changeTypefields} defaultValue="default" id="type" className="form-select form-control">
-                    <option value="default" disabled hidden>Select Insurance Type</option>
-                    <option>Property</option>
-                    <option>Motor</option>
-                    <option>Pet</option>
-                </select>
-                <label className="col-form-label" htmlFor="claimOpenDate">Claim Open Date</label>
-                <input type="date" className="form-control" id="claimOpenDate" defaultValue={defaultDate}></input>
-                </div>
-                {/* End of Column 1 */}
-
-                {/* Column 2 of form */}
-                <div className="col-6">
-                <label className="col-form-label form-text-left" htmlFor="title">Title</label>
-                <select defaultValue="default" id="title" name="title" className="form-select form-control">
-                    <option value="default" disabled hidden>Title</option>
+            <div className="col-12 col-lg-6">
+            <label className="col-form-label form-text-left" htmlFor="title">Title</label>
+                <select defaultValue="Do not specify" onChange={handleChange} id="title" name="title" className="form-select form-control">
+                    <option value="Do not specify" disabled hidden>Select Title</option>
                     <option>Mr</option>
                     <option>Mrs</option>
                     <option>Dr</option>
@@ -162,89 +132,119 @@ const [addClaim, setAddClaim] = useState({
                     <option>Miss</option>
                     <option>Do not specify</option>
                 </select>
-                <label className="col-form-label" htmlFor="surname">Surname</label>
-                <input type="text" className="form-control" id="surname" placeholder="Enter Surname"></input>
-                <input id="status" defaultValue="new" hidden></input>
-                <label className="col-form-label" htmlFor="estimatedValue">Estimated Value</label>
-                <input type="number" className="form-control" id="estimatedValue" placeholder="Enter the Estimated Value"></input>
-                <label className="col-form-label" htmlFor="incidentDate">Incident Date</label>
-                <input type="date" className="form-control" id="incidentDate"></input>
-                </div>
-                {/* End of Column 2 */}
+            </div>
+            <div className="col-12 col-lg-6">
+            <label className="col-form-label" htmlFor="firstName">First Name</label>
+                <input type="text" onChange={handleChange} required className="form-control" id="firstName" placeholder="Enter First Name"></input>
+            </div>
+            </div>
 
-                <div className="mt-3">
+            {/* Second Row Fields */}
+        <div className="form-group row">
+            <div className="col-12 col-lg-6">
+            <label className="col-form-label" htmlFor="surname">Surname</label>
+                <input type="text" onChange={handleChange} required className="form-control" id="surname" placeholder="Enter Surname"></input>
+            </div>
+            <div className="col-12 col-lg-6">
+            <label className="col-form-label form-text-left" htmlFor="type">Insurance Type</label>
+                <select onChange={changeTypefields} required defaultValue="" id="type" className="form-select form-control">
+                    <option value="" disabled hidden>Select Insurance Type</option>
+                    <option>Property</option>
+                    <option>Motor</option>
+                    <option>Pet</option>
+                </select>
+            </div>
+            </div>
+
+            {/* Third Row Fields */}
+        <div className="form-group row">
+            <div className="col-12 col-lg-6">
+            <label className="col-form-label" htmlFor="estimatedValue">Estimated Value</label>
+                <input type="number" onChange={handleChange} required className="form-control" id="estimatedValue" max="500" step=".01" placeholder="Enter the Estimated Value"></input>
+            </div>
+            <div className="col-12 col-lg-6">
+            <label className="col-form-label" htmlFor="incidentDate">Incident Date</label>
+                <input type="date" onChange={handleChange} required className="form-control" id="incidentDate"></input>
+            </div>
+            <div className="mt-3">
                 <hr></hr>
                 </div>
-                </div>
-
-                
-                {/* Only displays if Motor Insurance Type is selected */}
-                {!motorType ? <div className="form-group row">
-                <div className="col-6">
-                <label className="col-form-label" htmlFor="make">Car Make</label>
-                <input type="text" className="form-control" id="make" placeholder="Enter Make"></input>
-                <label className="col-form-label" htmlFor="year">Car Year</label>
-                <input type="text" className="form-control" id="year" placeholder="Enter Year"></input>
-                </div>
-                <div className="col-6">
-                <label className="col-form-label" htmlFor="model">Car Model</label>
-                <input type="text" className="form-control" id="model" placeholder="Enter Model"></input>
-                </div>
-                <div className="mt-3">
+            </div>
+            
+            {!motorType ? <div>
+            {/* Motor Row Fields */}
+            <div className="form-group row">
+            <div className="col-12 col-lg-6">
+            <label className="col-form-label" htmlFor="make">Car Make</label>
+                <input type="text" onChange={handleChange} className="form-control" id="make" defaultValue="" placeholder="Enter Make"></input>
+            </div>
+            <div className="col-12 col-lg-6">
+            <label className="col-form-label" htmlFor="model">Car Model</label>
+                <input type="text" onChange={handleChange} className="form-control" id="model" defaultValue="" placeholder="Enter Model"></input>
+            </div>
+            </div>
+            <div className="form-group row">
+            <div className="col-12 col-lg-6">
+            <label className="col-form-label" htmlFor="year">Car Year</label>
+                <input type="number" onChange={handleChange} className="form-control" min="1900" max="9999" id="year" defaultValue="" placeholder="Enter Year"></input>
+            </div>
+            </div>
+            <div className="mt-4">
                 <hr></hr>
                 </div>
-                </div> : null}
+            </div> : null}
 
-                {/* Only display if Property Insurance Type is selected */}
-                {!PropertyType ? 
-                <div className="row">
-                    <div className="col-12">
-                    <label className="col-form-label" htmlFor="address">Property Address</label>
-                    <input type="text" className="form-control" id="address" defaultValue="" placeholder="Enter Address"></input>
-                    </div>
-                    <div className="mt-3">
+            {!petType ? <div>
+            {/* Pet Row Fields */}
+            <div className="form-group row">
+            <div className="col-12 col-lg-6">
+            <label className="col-form-label" htmlFor="animalType">Animal Type</label>
+                    <input type="text" onChange={handleChange} className="form-control" id="animalType" defaultValue="" placeholder="Enter Type"></input>
+            </div>
+            <div className="col-12 col-lg-6">
+            <label className="col-form-label" htmlFor="breed">Animal Breed</label>
+                    <input type="text" onChange={handleChange} className="form-control" id="breed" defaultValue="" placeholder="Enter Breed"></input>
+            </div>
+            </div>
+            <div className="mt-4">
                 <hr></hr>
                 </div>
-                </div>
-                : null}
+            </div> : null}
 
-                {/* Only displays if Pet Insurance Type is selected */}
-                {!petType ?
-                <div className="row">
-                    <div className="col">
-                    <label className="col-form-label" htmlFor="animalType">Animal Type</label>
-                    <input type="text" className="form-control" id="animalType" defaultValue="" placeholder="Enter Type"></input>
-                    </div>
-                    <div className="col">
-                    <label className="col-form-label" htmlFor="breed">Animal Breed</label>
-                    <input type="text" className="form-control" id="breed" defaultValue="" placeholder="Enter Breed"></input>
-                    </div>
-                    <div className="mt-3">
+            {!PropertyType ? <div>
+            {/* Property Row Fields */}
+            <div className="form-group row">
+            <div className="col-12">
+            <label className="col-form-label" htmlFor="address">Property Address</label>
+                    <input type="text" onChange={handleChange} className="form-control" id="address" defaultValue="" placeholder="Enter Address"></input>
+            </div>
+            </div>
+            <div className="mt-4">
                 <hr></hr>
                 </div>
-                </div>
-                : null}
-                
-               <div className="row">
+            </div> : null}
+
+                {/* Fourth Row Fields */}
+            <div className="row">
                <div className="col-12">
                 <label className="col-form-label" htmlFor="claimReason">Reason for the claim</label>
-                <textarea id="claimReason" className="form-control" rows="2" maxLength="100" placeholder="Enter Reason For Claim"></textarea>
+                <textarea id="claimReason" onChange={handleChange} required className="form-control" rows="2" maxLength="100" placeholder="Enter Reason For Claim"></textarea>
                 </div>
                 <br></br>
                 <div className="col-12">
                 <label className="col-form-label" htmlFor="claimDescription">Incident Description</label>
-                <textarea id="claimDescription" className="form-control" rows="6" maxLength="500" placeholder="Enter Incident Description"></textarea>
+                <textarea id="claimDescription" onChange={handleChange} required className="form-control" rows="6" maxLength="500" placeholder="Enter Incident Description"></textarea>
                 <small className="form-text text-muted">*500 characters</small>
                 </div>
                 <div className="col-12">
                 <label className="col-form-label" htmlFor="furtherDetails">Further Details</label>
-                <textarea id="furtherDetails" className="form-control" rows="2" maxLength="500" placeholder="Enter Further Details"></textarea>
+                <textarea id="furtherDetails" onChange={handleChange} className="form-control" rows="2" maxLength="200" placeholder="Enter Further Details"></textarea>
                 </div>
                 <div>
-                <button className="btn btn-success col mt-4">Submit</button>
-                <button className="btn btn-danger col mt-4">Reset</button></div>
+                <button type="submit" className="btn btn-success col mt-4">Submit</button>
+                <button type="reset" className="btn btn-danger col mt-4" >Reset</button></div>
                 </div>
-                
+                <p>{message}</p>
 
         </form>
         </div>

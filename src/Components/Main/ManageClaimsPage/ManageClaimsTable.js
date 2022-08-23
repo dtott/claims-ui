@@ -3,13 +3,13 @@ import ManageClaimsTableRow from './ManageClaimsTableRow';
 const ManageClaimsTable = (props) => {
 
   const displayClaims = props.claimsToDisplay.filter(claims => props.searchTerm === "" || claims.firstName.toLowerCase().includes(props.searchTerm.toLowerCase()) || claims.policyNumber.toString().includes(props.searchTerm) ).map(claims =>
-    <ManageClaimsTableRow key={claims.policyNumber}
-      policyNumber={claims.policyNumber}
-      firstName={claims.firstName}
-      surname={claims.surname}
+    <ManageClaimsTableRow key={claims.claimId}
+      policyNumber={claims.claimId}
+      firstName={claims.customer.firstName}
+      surname={claims.customer.surname}
       type={claims.type}
       estimatedValue={claims.estimatedValue}
-      status={claims.status}
+      status={claims.status.status}
       claimId={claims.claimId}
     />
   )
