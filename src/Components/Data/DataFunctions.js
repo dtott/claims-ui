@@ -1,12 +1,5 @@
 import axios from "axios";
 
-export const getAllClaimsRest = () => {
-    return axios({ url: "http://localhost:8080/getClaims",
-    method: "GET", 
-    headers: {'Accept': 'application/json', 'Content-Type' : 'application/json'}
-});
-}
-
 //The claim object comes from the newClaimReducer in NewClaimForm
 export const addNewcustomer = (claim) => {
     return axios({ url: "http://localhost:8080/addNewCustomer", 
@@ -22,11 +15,13 @@ export const addNewClaim = (claim, id) => {
     data: claim});
 }
 
-export const getAllClagetClaimsBasedOnStatusimsRest = () => {
-    return axios({ url: "http://localhost:8080/getClaimsByStatus",
+export const getclaimsWithSelectedStatus = (selectedStatus) => {
+    return axios({ url: "http://localhost:8080/testDisplayClaims/" + selectedStatus,
     method: "GET", 
     headers: {'Accept': 'application/json', 'Content-Type' : 'application/json'}
 });
+
+
 }
 
 

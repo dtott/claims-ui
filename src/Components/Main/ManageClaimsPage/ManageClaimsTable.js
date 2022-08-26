@@ -2,7 +2,7 @@ import ManageClaimsTableRow from './ManageClaimsTableRow';
 
 const ManageClaimsTable = (props) => {
 
-  const displayClaims = props.claimsToDisplay.filter(claims => props.searchTerm === "" || claims.firstName.toLowerCase().includes(props.searchTerm.toLowerCase()) || claims.policyNumber.toString().includes(props.searchTerm) ).map(claims =>
+  const displayClaims = props.claimsToDisplay.filter(claims => props.searchTerm === "" || claims.customer.firstName.toLowerCase().includes(props.searchTerm.toLowerCase()) || claims.claimId.toString().includes(props.searchTerm) ).map(claims =>
     <ManageClaimsTableRow key={claims.claimId}
       policyNumber={claims.claimId}
       firstName={claims.customer.firstName}
@@ -18,8 +18,8 @@ const ManageClaimsTable = (props) => {
     <table className="table table-sm p-5">
       <thead className="thead-dark">
         <tr>
-          <th scope="col">Policy Number</th>
-          <th scope="col">Customer Name</th>
+          <th scope="col">Policy <br/>Number</th>
+          <th scope="col">Customer <br/>Name</th>
           <th scope="col">Type</th>
           <th scope="col">Amount</th>
           <th scope="col">Status</th>

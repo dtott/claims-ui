@@ -5,9 +5,9 @@ const JumbotronManageClaims = (props) => {
     const changeStatus = (event) => {
         const selectedStatusIndex = event.target.options.selectedIndex;
         if(selectedStatusIndex === 1){
-            props.setSelectedStatus(true);
+            props.setSelectedStatus("open");
         }else if(selectedStatusIndex === 2){
-            props.setSelectedStatus(false);
+            props.setSelectedStatus("closed");
         }else{
             props.setSelectedStatus();
         }

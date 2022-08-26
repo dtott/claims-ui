@@ -2,17 +2,20 @@ import { Fragment, useEffect, useState } from "react";
 import JumbotronManageClaims from "./JumbotronManageClaims";
 import ManageClaimsTable from "./ManageClaimsTable";
 import ManageClaimsSearchBar from "./ManageClaimsSearchBar";
-import { getClaimsByOpenStatus, getAllClaims } from "../../Data/sample-data";
-import { getAllClaimsRest } from "../../Data/DataFunctions";
+import { getclaimsWithSelectedStatus } from "../../Data/DataFunctions";
 
 const ManageClaims = () => {
 
-    //Fetching all Claims via API
+    //Set the claims via get Api
     const [allClaims, setAllClaims] = useState([]);
+    
+    //Set selected status via Jumbotron component
+    const [selectedStatus, setSelectedStatus] = useState("all");
 
+    //Call get api everytime selectedStatus state changes
     useEffect(() => {
-        const claimsPromise = getAllClaimsRest();
-        claimsPromise.then (
+        const claimsWithSelectedStatus = getclaimsWithSelectedStatus(selectedStatus);
+        claimsWithSelectedStatus.then (
             (response) => {
                 if(response.status === 200){
                     setAllClaims(response.data);
@@ -27,18 +30,10 @@ const ManageClaims = () => {
                 console.log("Server Error");
             }
         )
-    }, []);
-    
+    }, [selectedStatus]);
 
-    const [selectedStatus, setSelectedStatus] = useState();
-
-    const allOpenStatus = getClaimsByOpenStatus(selectedStatus);
-
-    
+    //Function for returning the allClaims state via ManageClaimsTable
     const displayStatusTable = () => {
-        if (selectedStatus !== undefined){
-            return allOpenStatus;
-        }
         return allClaims;
     }
 
@@ -51,7 +46,7 @@ const ManageClaims = () => {
     return <Fragment>
         <JumbotronManageClaims setSelectedStatus={setSelectedStatus} />
         <ManageClaimsSearchBar setSearchTerm={setSearchTerm}/>
-        <ManageClaimsTable claimsToDisplay={claimsToDisplay} searchTerm={searchTerm}/>
+        <ManageClaimsTable selectedStatus={selectedStatus} claimsToDisplay={claimsToDisplay} searchTerm={searchTerm}/>
     </Fragment>
 }
 
