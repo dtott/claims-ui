@@ -10,7 +10,7 @@ const PageHeader = (
     return  <Fragment>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
   <Container>
-  <Navbar.Brand><Link to="/" className="nav_title_font text-info nav-link-text">Small Claims</Link></Navbar.Brand>
+  <Navbar.Brand><Link to="/" className="nav_title_font text-info nav-link-text">Speedy Claims</Link></Navbar.Brand>
   <Navbar.Toggle aria-controls="responsive-navbar-nav" />
   <Navbar.Collapse id="responsive-navbar-nav">
     <div className="me-auto">

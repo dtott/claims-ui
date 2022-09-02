@@ -11,6 +11,7 @@ const ManageClaims = () => {
     
     //Set selected status via Jumbotron component
     const [selectedStatus, setSelectedStatus] = useState("all");
+    const [rendered, setRendered] = useState(false);
 
     //Call get api everytime selectedStatus state changes
     useEffect(() => {
@@ -19,6 +20,7 @@ const ManageClaims = () => {
             (response) => {
                 if(response.status === 200){
                     setAllClaims(response.data);
+                    setRendered(true);
                     console.log(response.status);
                 }else{
                     console.log("Something went wrong" + response.status);
@@ -46,7 +48,7 @@ const ManageClaims = () => {
     return <Fragment>
         <JumbotronManageClaims setSelectedStatus={setSelectedStatus} />
         <ManageClaimsSearchBar setSearchTerm={setSearchTerm}/>
-        <ManageClaimsTable selectedStatus={selectedStatus} claimsToDisplay={claimsToDisplay} searchTerm={searchTerm}/>
+        {rendered ? <ManageClaimsTable selectedStatus={selectedStatus} claimsToDisplay={claimsToDisplay} searchTerm={searchTerm}/> : <p>Please wait....</p>}
     </Fragment>
 }
 

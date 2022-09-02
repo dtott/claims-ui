@@ -12,13 +12,14 @@ const ManageClaimsSearchBar = (props) => {
 
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
-    setSearchValid (event.target.value.trim().length > 0);
+    setSearchValid (event.target.value.trim().length > 0)
+    props.setSearchTerm("");
   }
 
     return <div className="container search-margin col-11 col-sm-4">
     <form className="input-group" onSubmit={doSearch}>
     <input id="searchId" type="search" className="form-control my-2 rounded" onChange={handleChange} value={searchTerm} placeholder="Search" />
-    <button type="submit" className="btn btn-outline-primary my-2">Search</button>
+    <button type="submit" disabled={!searchValid} className="btn btn-outline-primary my-2">Search</button>
     </form>
   </div>
   

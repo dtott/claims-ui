@@ -13,11 +13,14 @@ import EditClaim from './Components/Main/EditClaimPage/EditClaim';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import EditClaimForm from './Components/Main/EditClaimPage/EditClaimForm';
 import Tasks from './Components/Main/TasksPage/Tasks';
+import { Provider } from 'react-redux';
+import claimStore from './Components/store/store';
 
 
 function App(props) {
 
   return (
+    <Provider store={claimStore}>
     <BrowserRouter>
     <div className="App">
       <PageHeader/>
@@ -26,12 +29,14 @@ function App(props) {
         <Route path="/newClaim" element={<NewClaim />} />
         <Route path="/manageClaims" element={<ManageClaims />} />
         <Route path="/editClaim" element={<EditClaim />} />
-        <Route path="/editClaimForm" element={<EditClaimForm />} />
+        <Route path="/editClaimForm/:id" element={<EditClaimForm viewClaim={false}/>} />
+        <Route path="/displayClaimForm/:id" element={<EditClaimForm viewClaim={true}/>} />
         <Route path="/tasks" element={<Tasks />} />
       </Routes>
       <PageFooter />
     </div>
     </BrowserRouter>
+    </Provider>
   );
 }
 

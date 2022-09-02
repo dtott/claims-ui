@@ -55,7 +55,7 @@ export const getAllClaims = () => {
     return claims;
 }
 
-export const getClaim = (claimId) => {
+export const getClaim1 = (claimId) => {
     return claims.find(it => it.claimId === claimId);
 }
 

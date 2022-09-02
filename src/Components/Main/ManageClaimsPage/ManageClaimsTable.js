@@ -2,7 +2,7 @@ import ManageClaimsTableRow from './ManageClaimsTableRow';
 
 const ManageClaimsTable = (props) => {
 
-  const displayClaims = props.claimsToDisplay.filter(claims => props.searchTerm === "" || claims.customer.firstName.toLowerCase().includes(props.searchTerm.toLowerCase()) || claims.claimId.toString().includes(props.searchTerm) ).map(claims =>
+  const displayClaims = props.claimsToDisplay.filter(claims => props.searchTerm === "" || claims.customer.firstName.toLowerCase().includes(props.searchTerm.toLowerCase()) || claims.customer.surname.toLowerCase().includes(props.searchTerm.toLowerCase()) || claims.claimId.toString().includes(props.searchTerm) ).map(claims =>
     <ManageClaimsTableRow key={claims.claimId}
       policyNumber={claims.claimId}
       firstName={claims.customer.firstName}
@@ -15,6 +15,7 @@ const ManageClaimsTable = (props) => {
   )
 
   return <div className="d-flex container">
+    {displayClaims.length > 0 ?
     <table className="table table-sm p-5">
       <thead className="thead-dark">
         <tr>
@@ -30,6 +31,7 @@ const ManageClaimsTable = (props) => {
         {displayClaims}
       </tbody>
     </table>
+    : <h3 className="container mt-3">Sorry! No results found. Please try a different search!</h3>}
   </div>
 }
 

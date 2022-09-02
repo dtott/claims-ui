@@ -16,12 +16,25 @@ export const addNewClaim = (claim, id) => {
 }
 
 export const getclaimsWithSelectedStatus = (selectedStatus) => {
-    return axios({ url: "http://localhost:8080/testDisplayClaims/" + selectedStatus,
+    return axios({ url: "http://localhost:8080/DisplayClaims/" + selectedStatus,
     method: "GET", 
     headers: {'Accept': 'application/json', 'Content-Type' : 'application/json'}
 });
-
-
 }
+
+export const getClaim = (claimId) => {
+    return axios({ url: "http://localhost:8080/getClaim/" + claimId,
+    method: "GET", 
+    headers: {'Accept': 'application/json', 'Content-Type' : 'application/json'}
+});
+}
+
+export const updateClaim = (claim, id) =>  {
+    return axios({ url : "http://localhost:8080//updateClaim/" + id, 
+    method : "PUT", 
+    headers : {'Accept': 'application/json', 'Content-Type' : 'application/json' } , 
+    data : claim } );
+}
+
 
 
