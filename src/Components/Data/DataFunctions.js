@@ -30,11 +30,17 @@ export const getClaim = (claimId) => {
 }
 
 export const updateClaim = (claim, id) =>  {
-    return axios({ url : "http://localhost:8080//updateClaim/" + id, 
+    return axios({ url : "http://localhost:8080/updateClaim/" + id, 
     method : "PUT", 
     headers : {'Accept': 'application/json', 'Content-Type' : 'application/json' } , 
     data : claim } );
 }
 
+export const updateClaimStatus = (claimId, statusId) =>  {
+    return axios({ url : "http://localhost:8080/updateClaimStatus/" + claimId + "/" + statusId, 
+    method : "PUT", 
+    headers : {'Accept': 'application/json', 'Content-Type' : 'application/json' } , 
+} );
+}
 
 

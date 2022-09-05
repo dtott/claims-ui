@@ -1,16 +1,18 @@
 import { Fragment, useEffect, useState } from "react";
-import { useLocation } from "react-router";
-import EditClaimForm from "./EditClaimForm";
+import { useLocation, useParams } from "react-router";
 import DisplayClaim from "./DisplayClaim";
 import { getClaim } from "../../Data/DataFunctions";
 
 const EditClaim = () => {
 
-    const location = useLocation();
-    const {claimId} = location.state;
+    const params = useParams();
+
+    const claimId = params.id;
 
     const [claimByID, setClaimByID] = useState([]);
     const [hasRendered, setHasRendered] = useState(false)
+    
+    const [statusWasUpdated, setStatusWasUpdated] = useState(0);
     
     useEffect(() => {
         const getClaimResponse = getClaim(claimId);
@@ -29,10 +31,11 @@ const EditClaim = () => {
                 console.log("Server Error");
             }
         )
-    }, []);
+
+    }, [statusWasUpdated]);
     
     return <Fragment>
-        {hasRendered ? <DisplayClaim claimByID={claimByID} /> : <p>Please wait....</p>}
+        {hasRendered ? <DisplayClaim claimByID={claimByID} setStatusWasUpdated={setStatusWasUpdated} statusWasUpdated={statusWasUpdated}/> : <p>Please wait....</p>}
     </Fragment>
 }
 

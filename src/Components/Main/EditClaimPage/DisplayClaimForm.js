@@ -7,11 +7,11 @@ const DisplayClaimForm = (props) => {
     rendered=props.rendered, navigate=props.navigate;
 
 
-    return <Fragment>{rendered ? <div className="d-flex justify-content-center mt-4">
+    return <Fragment>{rendered ? <div className="d-flex justify-content-center my-4">
     <form onSubmit={onSubmit} className="card p-3 bg-light col-xl-6 col-lg-10 col-md-10 col-sm-10 col-11 mb-7">
 
-        <h4 className="text-center mt-2" hidden={!viewClaim}>Full Details</h4>
-        <h4 className="text-center mt-2" hidden={viewClaim}>Edit Details</h4>
+        <h1 className="text-center fw-bold display-6 mt-2" hidden={!viewClaim}>Full Details</h1>
+        <h1 className="text-center fw-bold display-6 mt-2" hidden={viewClaim}>Edit Details</h1>
 
         <hr></hr>
 
@@ -71,7 +71,7 @@ const DisplayClaimForm = (props) => {
             </div>
             <div className="col-12 col-lg-6">
                 <label className="col-form-label" htmlFor="estimatedValue">Estimated Value</label>
-                <input type="number" className="form-control" onChange={handleChange} required id="estimatedValue" disabled={viewClaim} defaultValue={getClaimDetails.estimatedValue}></input>
+                <input type="number" className="form-control" onChange={handleChange} required max="500" step=".01" id="estimatedValue" disabled={viewClaim} defaultValue={getClaimDetails.estimatedValue}></input>
             </div>
         </div>
 
@@ -158,7 +158,7 @@ const DisplayClaimForm = (props) => {
             </div>
             <div className="col-12">
                 <label className="col-form-label" htmlFor="furtherDetails">Further Details</label>
-                <textarea id="furtherDetails" className="form-control" onChange={handleChange} required rows="2" maxLength="100" disabled={viewClaim} defaultValue={getClaimDetails.furtherDetails}></textarea>
+                <textarea id="furtherDetails" className="form-control" onChange={handleChange} rows="2" maxLength="100" disabled={viewClaim} defaultValue={getClaimDetails.furtherDetails}></textarea>
             </div>
             <div>
                 <button type="submit" hidden={viewClaim} className="btn btn-success col mt-4">Update Details</button>

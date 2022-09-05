@@ -1,5 +1,15 @@
+import { Fragment } from "react";
+import HomePageCards from "./HomePageCards";
+import JumbotronHomePage from "./JumbotronHomePage";
+
 const HomePage = () => {
-    return <p>Home</p>
+
+
+
+    return <Fragment>
+        <JumbotronHomePage />
+        <HomePageCards />
+        </Fragment>
 }
 
 export default HomePage;

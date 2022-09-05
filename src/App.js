@@ -28,7 +28,7 @@ function App(props) {
         <Route path="/" element={<HomePage />} />
         <Route path="/newClaim" element={<NewClaim />} />
         <Route path="/manageClaims" element={<ManageClaims />} />
-        <Route path="/editClaim" element={<EditClaim />} />
+        <Route path="/editClaim/:id" element={<EditClaim />} />
         <Route path="/editClaimForm/:id" element={<EditClaimForm viewClaim={false}/>} />
         <Route path="/displayClaimForm/:id" element={<EditClaimForm viewClaim={true}/>} />
         <Route path="/tasks" element={<Tasks />} />

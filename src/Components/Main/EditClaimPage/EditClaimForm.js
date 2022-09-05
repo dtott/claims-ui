@@ -127,6 +127,7 @@ const EditClaimForm = (props) => {
         response.then(result => {
             if (result.status === 200) {
                 console.log("Update Complete " + result.status);
+                navigate("/editClaim/" + getClaimDetails.claimId);
             } else {
                 console.log("Something went wrong" + result.status);
             }

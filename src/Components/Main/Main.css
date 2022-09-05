@@ -128,3 +128,16 @@ h5 {
 .align-right {
     text-align: right;
 }
+
+.card-width{
+    width: 30rem !important;
+    text-align: left !important;
+}
+
+.card-text-size{
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
