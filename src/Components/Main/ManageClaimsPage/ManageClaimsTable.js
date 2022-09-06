@@ -31,7 +31,7 @@ const ManageClaimsTable = (props) => {
         {displayClaims}
       </tbody>
     </table>
-    : <h3 className="container mt-3">Sorry! No results found. Please try a different search!</h3>}
+    : <h3 className="container mt-3">No results found. Please try a different search!</h3>}
   </div>
 }
 

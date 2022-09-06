@@ -121,6 +121,8 @@ const EditClaimForm = (props) => {
             data = { ...data, year: newClaim.year };
         }
 
+        console.log(newClaim);
+
         if (Object.keys(data).length > 0){
         //Api call for put method
         const response = updateClaim(data, getClaimDetails.claimId);

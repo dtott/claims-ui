@@ -140,4 +140,17 @@ h5 {
     margin-bottom: 10px;
 }
 
+.form-width-paidAmount{
+    width: 20px !important;
+}
+
+.form-text-left-with-no-margin{
+    align-content: left !important;
+    margin: 0px !important;
+}
+
+.remove-label-margin{
+    margin: 0;
+}
+
 

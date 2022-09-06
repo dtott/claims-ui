@@ -52,7 +52,8 @@ const NewClaimForm = () => {
         furtherDetails: '',
         animalType: '',
         breed: '',
-        address: ''
+        address: '',
+        paidAmount: ''
     }
 
     const [userID, setUserID] = useState(null);
