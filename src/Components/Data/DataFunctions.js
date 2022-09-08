@@ -1,46 +1,61 @@
 import axios from "axios";
 
+const basicAuthHeader = (username, password) => {
+    console.log(btoa(`${username}:${password}`));
+    return {'Authorization' : 'Basic ' + btoa(`${username}:${password}`)}
+}
+
 //The claim object comes from the newClaimReducer in NewClaimForm
-export const addNewcustomer = (claim) => {
-    return axios({ url: "http://localhost:8080/addNewCustomer", 
+export const addNewcustomer = (username, password, claim) => {
+    return axios({ url: "http://localhost:8080/customer", 
     method: "POST", 
-    headers: {'Accept': 'application/json', 'Content-Type' : 'application/json'}, 
+    headers: {...basicAuthHeader(username,password), 'Accept': 'application/json', 'Content-Type' : 'application/json'}, 
     data: claim});
 }
 
-export const addNewClaim = (claim, id) => {
-    return axios({ url: "http://localhost:8080/addNewClaim/" + id, 
+export const addNewClaim = (username, password, claim, id) => {
+    return axios({ url: "http://localhost:8080/claim/" + id, 
     method: "POST", 
-    headers: {'Accept': 'application/json', 'Content-Type' : 'application/json'}, 
+    headers: {...basicAuthHeader(username,password), 'Accept': 'application/json', 'Content-Type' : 'application/json'}, 
     data: claim});
 }
 
-export const getclaimsWithSelectedStatus = (selectedStatus) => {
-    return axios({ url: "http://localhost:8080/DisplayClaims/" + selectedStatus,
+export const getclaimsWithSelectedStatus = (username, password, selectedStatus) => {
+    return axios({ url: "http://localhost:8080/claim?selectedStatus=" + selectedStatus,
     method: "GET", 
-    headers: {'Accept': 'application/json', 'Content-Type' : 'application/json'}
+    headers: {...basicAuthHeader(username, password), 'Accept': 'application/json', 'Content-Type' : 'application/json'},
 });
 }
 
-export const getClaim = (claimId) => {
-    return axios({ url: "http://localhost:8080/getClaim/" + claimId,
+export const getClaim = (username, password, claimId) => {
+    return axios({ url: "http://localhost:8080/claim/" + claimId,
     method: "GET", 
-    headers: {'Accept': 'application/json', 'Content-Type' : 'application/json'}
+    headers: {...basicAuthHeader(username, password), 'Accept': 'application/json', 'Content-Type' : 'application/json'}
 });
 }
 
-export const updateClaim = (claim, id) =>  {
-    return axios({ url : "http://localhost:8080/updateClaim/" + id, 
+export const updateClaim = (username, password, claim, id) =>  {
+    return axios({ url : "http://localhost:8080/claim/" + id, 
     method : "PUT", 
-    headers : {'Accept': 'application/json', 'Content-Type' : 'application/json' } , 
+    headers : {...basicAuthHeader(username, password), 'Accept': 'application/json', 'Content-Type' : 'application/json' } , 
     data : claim } );
 }
 
-export const updateClaimStatus = (claimId, statusId) =>  {
-    return axios({ url : "http://localhost:8080/updateClaimStatus/" + claimId + "/" + statusId, 
+export const updateClaimStatus = (username, password, claimId, statusId) =>  {
+    return axios({ url : "http://localhost:8080/claim/" + claimId + "/" + statusId, 
     method : "PUT", 
-    headers : {'Accept': 'application/json', 'Content-Type' : 'application/json' } , 
+    headers : {...basicAuthHeader(username, password),'Accept': 'application/json', 'Content-Type' : 'application/json' } , 
 } );
 }
+
+export const login = (username, password) => {
+    return axios(
+        {url : "http://localhost:8080/login",
+        method: "POST",
+        headers : {...basicAuthHeader(username, password), 'Accept': 'application/json', 'Content-Type' : 'application/json' },
+        data : {"username" : username}
+    }) ;
+}
+
 
 

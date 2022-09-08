@@ -1,8 +1,12 @@
 import { Fragment, useEffect, useReducer, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { addNewClaim, addNewcustomer } from "../../Data/DataFunctions";
 
 const NewClaimForm = () => {
+
+    const username = useSelector(state => state.user.username);
+    const password = useSelector(state => state.user.password);
 
     const [motorType, setMotorType] = useState(true);
     const [PropertyType, setPropertyType] = useState(true);
@@ -81,7 +85,7 @@ const NewClaimForm = () => {
         console.log(newClaim);
         isSubmitPressed.current = true;
         // Response for adding customer fields
-        const response = addNewcustomer(newClaim);
+        const response = addNewcustomer(username, password, newClaim);
         response.then(result => {
             if (result.status === 200) {
                 setUserID(result.data.customerID);
@@ -101,7 +105,7 @@ const NewClaimForm = () => {
         if (isSubmitPressed.current) {
             console.log(userID);
             // Response for adding claimDetails
-            const responseClaimDetails = addNewClaim(newClaim, userID);
+            const responseClaimDetails = addNewClaim(username, password, newClaim, userID);
             responseClaimDetails.then(result => {
                 if (result.status === 200) {
                     console.log(result.status);

@@ -3,9 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { getClaim, updateClaim } from "../../Data/DataFunctions";
 import { useParams } from "react-router";
 import DisplayClaimForm from "./DisplayClaimForm";
+import { useSelector } from "react-redux";
 
 
 const EditClaimForm = (props) => {
+
+    const username = useSelector(state => state.user.username);
+    const password = useSelector(state => state.user.password);
 
     const navigate = useNavigate();
 
@@ -17,7 +21,7 @@ const EditClaimForm = (props) => {
     const [rendered, setRendered] = useState(false);
 
     useEffect(() => {
-        const getClaimResponse = getClaim(params.id);
+        const getClaimResponse = getClaim(username, password, params.id);
         getClaimResponse.then(
             (response) => {
                 if (response.status === 200) {
@@ -121,11 +125,9 @@ const EditClaimForm = (props) => {
             data = { ...data, year: newClaim.year };
         }
 
-        console.log(newClaim);
-
         if (Object.keys(data).length > 0){
         //Api call for put method
-        const response = updateClaim(data, getClaimDetails.claimId);
+        const response = updateClaim(username, password, data, getClaimDetails.claimId);
         response.then(result => {
             if (result.status === 200) {
                 console.log("Update Complete " + result.status);

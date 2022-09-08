@@ -3,9 +3,13 @@ import { Badge, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { updateClaim, updateClaimStatus } from "../../Data/DataFunctions";
+import { useSelector } from "react-redux";
 
 
 const DisplayClaim = (props) => {
+
+    const username = useSelector(state => state.user.username);
+    const password = useSelector(state => state.user.password);
 
     const [editAvailable, setEditAvailable] = useState(false);
 
@@ -78,7 +82,7 @@ const DisplayClaim = (props) => {
         if (props.claimByID.status.id !== newStatus && props.claimByID.status.id !== null) {
 
             //Api call for put request
-            const response = updateClaimStatus(props.claimByID.claimId, newStatus);
+            const response = updateClaimStatus(username, password, props.claimByID.claimId, newStatus);
             response.then(result => {
                 if (result.status === 200) {
                     console.log("Status Update Complete " + result.status);
@@ -93,7 +97,7 @@ const DisplayClaim = (props) => {
         }
         if (Object.keys(data).length > 0){
             //Api call for put method
-            const response = updateClaim(data, props.claimByID.claimId);
+            const response = updateClaim(username, password, data, props.claimByID.claimId);
             response.then(result => {
                 if (result.status === 200) {
                     console.log("Paid Amount Update Complete " + result.status);
@@ -178,7 +182,7 @@ const DisplayClaim = (props) => {
                         <hr></hr>
                     </div>
 
-                    <div className="row">
+                    <div className="row mb-4">
                         <div className="col-12">
                             <h4 className="form-text-left">Review Claim</h4>
                             <small className="form-text text-muted small-margin">Review the Information below to process application</small>
@@ -196,12 +200,6 @@ const DisplayClaim = (props) => {
                         <div className="col-12">
                             <label className="col-form-label">Further Details</label>
                             <textarea className="form-control" rows="2" minLength="100" defaultValue={props.claimByID.furtherDetails} disabled></textarea>
-                        </div>
-
-
-                        <div className="col-6">
-                            <Link to="/notes" state={{ claimId: props.claimByID.claimId }}><label><Button variant="primary">Notes <Badge bg="secondary"></Badge></Button></label></Link>
-                            <Link to="/tasks" state={{ claimId: props.claimByID.claimId }}><label><Button variant="success">Tasks <Badge bg="secondary"></Badge></Button></label></Link>
                         </div>
                     </div>
 

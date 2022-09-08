@@ -22,9 +22,9 @@ const HomePageCards = () => {
       <Card.Img variant="top" src="/Images/HomePageImg1.jpg" />
       <Card.Body>
         <Card.Title className="card-title-font"><h3>New Claim</h3></Card.Title>
-        <Card.Text><p className="card-text-size">
+        <Card.Text className="card-text-size">
         Open a new claim and begin processing using the button below
-        </p></Card.Text>
+        </Card.Text>
         <Button onClick={newClaimClick} variant="outline-primary">Open New Claim</Button>
       </Card.Body>
     </Card>
@@ -34,9 +34,9 @@ const HomePageCards = () => {
       <Card.Img variant="top" src="/Images/HomePageImg2.jpg" />
       <Card.Body>
         <Card.Title><h3>Manage Claims</h3></Card.Title>
-        <Card.Text><p className="card-text-size">
+       <Card.Text className="card-text-size">
           To manage the progress of existing claims use the button below
-          </p></Card.Text>
+          </Card.Text>
         <Button onClick={manageClaimClick} variant="outline-primary">Manage Claims</Button>
       </Card.Body>
     </Card>

@@ -1,12 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-const initialState = { claimDetails : {}};
+const initialState = { user:{username : "", password: "", role : "", name : ""}};
 
 const claimsReducer = (state = initialState, action) => {
 
-    if (action.type === "set-claim-to-edit"){
-        return {...state, claimDetails : action.value}
-    }
+if(action.type === "login") {
+    return {...state, user: action.value}
+}else if (action.type === "logout"){
+    return {...state, user: {username: "", password: "", role: "", name: ""}}
+}else {
+    console.log("unknown redux action " + action.type);
+    return state;
+}
 
 }
 

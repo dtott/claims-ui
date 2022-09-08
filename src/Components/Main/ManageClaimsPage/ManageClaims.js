@@ -3,8 +3,12 @@ import JumbotronManageClaims from "./JumbotronManageClaims";
 import ManageClaimsTable from "./ManageClaimsTable";
 import ManageClaimsSearchBar from "./ManageClaimsSearchBar";
 import { getclaimsWithSelectedStatus } from "../../Data/DataFunctions";
+import { useSelector } from "react-redux";
 
 const ManageClaims = () => {
+
+    const username = useSelector(state => state.user.username);
+    const password = useSelector(state => state.user.password);
 
     //Set the claims via get Api
     const [allClaims, setAllClaims] = useState([]);
@@ -15,7 +19,7 @@ const ManageClaims = () => {
 
     //Call get api everytime selectedStatus state changes
     useEffect(() => {
-        const claimsWithSelectedStatus = getclaimsWithSelectedStatus(selectedStatus);
+        const claimsWithSelectedStatus = getclaimsWithSelectedStatus(username, password, selectedStatus);
         claimsWithSelectedStatus.then (
             (response) => {
                 if(response.status === 200){

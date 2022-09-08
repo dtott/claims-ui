@@ -1,11 +1,24 @@
 import './PageHeader.css';
 import { Fragment } from "react";
-import { Navbar, Container } from "react-bootstrap";
+import { Navbar, Container, Dropdown } from "react-bootstrap";
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 
-const PageHeader = (
-  
-) => {
+const PageHeader = () => {
+
+  const username = useSelector(state => state.user.name);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const login = () => {
+      navigate("/login");
+  }
+
+  const logout = () => {
+    dispatch({type : "logout"});
+    navigate("/");
+  }
   
     return  <Fragment>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -19,7 +32,17 @@ const PageHeader = (
       <Link to="/manageClaims" className="d-block d-lg-inline nav-link-text" >Manage Claims</Link>
     </div>
     <div>
-      <button className="btn nav-link-text btn-outline-info">Stay Connected</button>
+      {username === "" ?
+      <button className="btn nav-link-text btn-outline-info" onClick={login} id="login">Login</button>
+      : <Dropdown>
+      <Dropdown.Toggle className="px-3" variant="outline-info" id="logout">
+        {username + "  "}
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu variant="dark">
+        <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>}
     </div>
   </Navbar.Collapse>
   </Container>

@@ -2,8 +2,12 @@ import { Fragment, useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router";
 import DisplayClaim from "./DisplayClaim";
 import { getClaim } from "../../Data/DataFunctions";
+import { useSelector } from "react-redux";
 
 const EditClaim = () => {
+
+    const username = useSelector(state => state.user.username);
+    const password = useSelector(state => state.user.password);
 
     const params = useParams();
 
@@ -15,7 +19,7 @@ const EditClaim = () => {
     const [statusWasUpdated, setStatusWasUpdated] = useState(0);
     
     useEffect(() => {
-        const getClaimResponse = getClaim(claimId);
+        const getClaimResponse = getClaim(username, password, claimId);
         getClaimResponse.then (
             (response) => {
                 if(response.status === 200){
