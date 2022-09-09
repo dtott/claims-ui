@@ -17,7 +17,7 @@ const HomePageCards = () => {
     return <Fragment>
         <div className="container">
     <div className="row justify-content-center">
-    <div className="col-5">
+    <div className="col-xl-5 col-12">
 <Card className="card-width mt-5">
       <Card.Img variant="top" src="/Images/HomePageImg1.jpg" />
       <Card.Body>
@@ -29,7 +29,7 @@ const HomePageCards = () => {
       </Card.Body>
     </Card>
     </div>
-    <div className="col-5">
+    <div className="col-xl-5 col-12">
     <Card className="card-width mt-5">
       <Card.Img variant="top" src="/Images/HomePageImg2.jpg" />
       <Card.Body>

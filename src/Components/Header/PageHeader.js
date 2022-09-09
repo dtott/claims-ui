@@ -28,7 +28,7 @@ const PageHeader = () => {
   <Navbar.Collapse id="responsive-navbar-nav">
     <div className="me-auto">
       <Link to="/" className="d-block d-lg-inline nav-link-text" >Home</Link>
-      <Link to="/newClaim" className="d-block d-lg-inline nav-link-text" >New Claim</Link>
+      <Link data-testId="newClaim" to="/newClaim" className="d-block d-lg-inline nav-link-text" >New Claim</Link>
       <Link to="/manageClaims" className="d-block d-lg-inline nav-link-text" >Manage Claims</Link>
     </div>
     <div>

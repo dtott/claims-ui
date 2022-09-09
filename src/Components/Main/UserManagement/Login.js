@@ -11,6 +11,7 @@ const Login = () => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [message, setMessage] = useState(false);
 
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
@@ -34,17 +35,18 @@ const Login = () => {
                         role : result.data.role, 
                         name : result.data.name} 
                 });
-                console.log(searchParams.has("target"))
 
                 if (searchParams.has("target")){
                    navigate(searchParams.get("target")); 
                 }else{
                     navigate("/");
                 }  
+                setMessage(false);
             }
         })
         .catch (error => {
             console.log("error ", error);
+            setMessage(true);
         })
     }
 
@@ -57,10 +59,13 @@ const Login = () => {
         <div className="form-group mt-4">
             <input type="text" onChange={updateUsername} className="form-control" id="username" placeholder="Username" required="required"></input>
         </div>
-        <div className="form-group my-3">
+        <div className="form-group mt-3">
             <input type="password" onChange={updatePassword} className="form-control" id="password" placeholder="Password" required="required"></input>
         </div>
-        <div className="form-group mb-4">
+        <div className="form-group mt-3">
+            {message ? <p className="text-danger">Incorrect password!</p>: null}
+        </div>
+        <div className="form-group my-2">
             <button type="submit" className="btn btn-outline-primary col-4">Log in</button>
             <button type="reset" className="btn btn-outline-danger col-4">Clear</button>
         </div>       
